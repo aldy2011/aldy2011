@@ -6,6 +6,7 @@
     <title>Profil Sekolah - SMPIT FITHRAH INSANI 2</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/build/es5/index.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -202,10 +203,10 @@
 
                 <form class="kontak-form" id="contactForm">
                     <h3>Kirim Pesan</h3>
-                    <input type="text" placeholder="Nama Anda" required>
-                    <input type="email" placeholder="Email Anda" required>
-                    <input type="text" placeholder="Subjek" required>
-                    <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+                    <input type="text" name="user_name" placeholder="Nama Anda" required>
+                    <input type="email" name="user_email" placeholder="Email Anda" required>
+                    <input type="text" name="subject" placeholder="Subjek" required>
+                    <textarea name="message" placeholder="Pesan Anda" rows="5" required></textarea>
                     <button type="submit" class="btn btn-primary">Kirim Pesan</button>
                 </form>
             </div>
@@ -240,7 +241,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 SMA Negeri Harapan Bangsa. Semua Hak Dilindungi.</p>
+                <p>&copy; 2025 SMPIT Fithrah insani 2.</p>
             </div>
         </div>
     </footer>

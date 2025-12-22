@@ -1,3 +1,6 @@
+// Initialize EmailJS
+emailjs.init('HVMTP7qzaNBznD628'); // Public Key
+
 // Smooth scrolling dan active link highlighting
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
@@ -38,26 +41,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Form submission
+    // Form submission dengan EmailJS
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
-            const name = this.elements[0].value;
-            const email = this.elements[1].value;
-            const subject = this.elements[2].value;
-            const message = this.elements[3].value;
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            button.textContent = 'Mengirim...';
+            button.disabled = true;
 
-            // Simple validation
-            if (name && email && subject && message) {
-                // Show success message
-                alert('Terima kasih ' + name + '! Pesan Anda telah kami terima. Kami akan menghubungi Anda segera.');
-                
-                // Reset form
-                this.reset();
-            } else {
+            // Kirim email menggunakan EmailJS
+            emailjs.sendForm('service_kz4uq6e', 'template_p0ppduy', this)
+                .then(function(response) {
+                    alert('Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan menghubungi Anda segera.');
+                    contactForm.reset();
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi.');
+                    button.textContent = originalText;
+                    button.disabled = false;
+                });
+        });
+    }
                 alert('Mohon isi semua field yang tersedia.');
             }
         });
