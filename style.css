@@ -1,0 +1,573 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #ff8c00;
+    --secondary-color: #ffa500;
+    --accent-color: #ffffff;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --bg-light: #fff8f0;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== Navigation ===== */
+.navbar {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand h1 {
+    font-size: 1.5rem;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--white);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--white);
+    padding: 100px 20px;
+    text-align: center;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.8s ease;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Buttons ===== */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: #e67e00;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===== Section Titles ===== */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* ===== Profile Section ===== */
+.profil {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.profil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.profil-card {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.profil-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-top: 4px solid var(--secondary-color);
+}
+
+.profil-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.profil-card p {
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.info-section {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.info-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.info-table tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-table td {
+    padding: 1rem;
+    text-align: left;
+}
+
+.info-table tr:hover {
+    background: var(--white);
+}
+
+/* ===== Facilities Section ===== */
+.fasilitas {
+    padding: 80px 20px;
+    background: var(--bg-light);
+}
+
+.fasilitas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.fasilitas-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.fasilitas-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.fasilitas-card i {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.fasilitas-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.fasilitas-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* ===== Achievements Section ===== */
+.prestasi {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.prestasi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.prestasi-item {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.prestasi-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.prestasi-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.prestasi-item p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.prestasi-detail {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.prestasi-detail h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.achievement-list {
+    list-style: none;
+}
+
+.achievement-list li {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.achievement-list li:last-child {
+    border-bottom: none;
+}
+
+.achievement-list li:hover {
+    background: var(--white);
+    padding-left: 1.5rem;
+}
+
+.achievement-list i {
+    color: var(--primary-color);
+    margin-right: 1rem;
+}
+
+/* ===== Contact Section ===== */
+.kontak {
+    padding: 80px 20px;
+    background: var(--bg-light);
+}
+
+.kontak-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.kontak-info {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.kontak-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.kontak-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.kontak-item i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    min-width: 30px;
+}
+
+.kontak-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.kontak-item p {
+    color: var(--text-light);
+}
+
+.kontak-form {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.kontak-form h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.kontak-form input,
+.kontak-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.kontak-form input:focus,
+.kontak-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.kontak-form button {
+    width: 100%;
+}
+
+/* ===== Footer ===== */
+.footer {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 3rem 20px 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.footer-section p {
+    color: #d1d5db;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--accent-color);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d1d5db;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .kontak-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prestasi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fasilitas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand h1 {
+        font-size: 1.2rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero {
+        min-height: 300px;
+        padding: 50px 20px;
+    }
+
+    .prestasi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prestasi-number {
+        font-size: 2rem;
+    }
+}
