@@ -49,6 +49,19 @@ body {
     align-items: center;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-logo {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
 .navbar-brand h1 {
     font-size: 1.5rem;
 }
