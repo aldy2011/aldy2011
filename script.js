@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
 
-    // Update active link pada scroll
+    // Update active link pada scroll dengan smooth transition
     window.addEventListener('scroll', function() {
         let current = '';
 
@@ -28,15 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Hamburger menu toggle
+    // Hamburger menu toggle dengan animasi
     if (hamburger) {
         hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
             navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
         });
 
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
                 navMenu.style.display = 'none';
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
             });
         });
     }
@@ -55,25 +59,48 @@ document.addEventListener('DOMContentLoaded', function() {
             // Kirim email menggunakan EmailJS
             emailjs.sendForm('service_kz4uq6e', 'template_p0ppduy', this)
                 .then(function(response) {
-                    alert('Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan menghubungi Anda segera.');
+                    showNotification('Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan menghubungi Anda segera.', 'success');
                     contactForm.reset();
                     button.textContent = originalText;
                     button.disabled = false;
                 }, function(error) {
                     console.log('FAILED...', error);
-                    alert('Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi.');
+                    showNotification('Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi.', 'error');
                     button.textContent = originalText;
                     button.disabled = false;
                 });
         });
     }
-                alert('Mohon isi semua field yang tersedia.');
-            }
-        });
-    }
 });
 
-// Scroll to top button
+// Custom notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        animation: slideInRight 0.4s ease;
+        font-weight: 500;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 4000);
+}
+
+// Scroll to top button dengan animasi
 window.addEventListener('scroll', function() {
     if (window.scrollY > 300) {
         if (!document.getElementById('scrollToTop')) {
@@ -82,22 +109,23 @@ window.addEventListener('scroll', function() {
             scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             scrollBtn.style.cssText = `
                 position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+                bottom: 30px;
+                right: 30px;
+                background: linear-gradient(135deg, #ff8c00, #ffa500);
                 color: white;
                 border: none;
                 border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
                 cursor: pointer;
                 z-index: 999;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
                 transition: all 0.3s ease;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                animation: slideUp 0.4s ease;
             `;
 
             document.body.appendChild(scrollBtn);
@@ -110,19 +138,20 @@ window.addEventListener('scroll', function() {
             });
 
             scrollBtn.addEventListener('mouseover', function() {
-                this.style.transform = 'scale(1.1)';
-                this.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.15)';
+                this.style.transform = 'scale(1.15) translateY(-5px)';
+                this.style.boxShadow = '0 12px 30px rgba(255, 140, 0, 0.5)';
             });
 
             scrollBtn.addEventListener('mouseout', function() {
                 this.style.transform = 'scale(1)';
-                this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                this.style.boxShadow = '0 8px 20px rgba(255, 140, 0, 0.3)';
             });
         }
     } else {
         const scrollBtn = document.getElementById('scrollToTop');
         if (scrollBtn) {
-            scrollBtn.remove();
+            scrollBtn.style.animation = 'slideDown 0.4s ease';
+            setTimeout(() => scrollBtn.remove(), 400);
         }
     }
 });
@@ -150,7 +179,7 @@ function animateNumbers() {
 
 // Trigger animation when section is in view
 const observerOptions = {
-    threshold: 0.5
+    threshold: 0.3
 };
 
 const observer = new IntersectionObserver(function(entries) {
@@ -167,13 +196,8 @@ if (prestasiSection) {
     observer.observe(prestasiSection);
 }
 
-// Loading animation
-window.addEventListener('load', function() {
-    document.body.style.opacity = '1';
-});
-
 // Fade in elements on scroll
-const fadeElements = document.querySelectorAll('.profil-card, .fasilitas-card');
+const fadeElements = document.querySelectorAll('.profil-card, .fasilitas-card, .prestasi-item');
 
 const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -186,42 +210,23 @@ const fadeObserver = new IntersectionObserver((entries) => {
 
 fadeElements.forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
+    el.style.transform = 'translateY(30px)';
     el.style.transition = 'all 0.6s ease';
     fadeObserver.observe(el);
 });
 
-// Initialize tooltips
-document.querySelectorAll('[title]').forEach(element => {
-    element.addEventListener('mouseover', function() {
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        tooltip.textContent = this.getAttribute('title');
-        tooltip.style.cssText = `
-            position: absolute;
-            background: #1f2937;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            z-index: 1000;
-            white-space: nowrap;
-        `;
-        document.body.appendChild(tooltip);
-
-        const rect = this.getBoundingClientRect();
-        tooltip.style.left = rect.left + 'px';
-        tooltip.style.top = (rect.top - tooltip.offsetHeight - 5) + 'px';
-
-        this.addEventListener('mouseout', function() {
-            tooltip.remove();
-        }, { once: true });
-    });
+// Parallax effect untuk hero section
+window.addEventListener('scroll', function() {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.backgroundPosition = '0 ' + (window.pageYOffset * 0.5) + 'px';
+    }
 });
 
-// Add visual feedback on click
+// Add ripple effect pada semua tombol
 document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'BUTTON' || e.target.parentElement.tagName === 'BUTTON') {
+    const btn = e.target.closest('button, .btn');
+    if (btn && !btn.classList.contains('ripple-initialized')) {
         const ripple = document.createElement('span');
         ripple.style.cssText = `
             position: absolute;
@@ -231,7 +236,6 @@ document.addEventListener('click', function(e) {
             pointer-events: none;
         `;
 
-        const btn = e.target.tagName === 'BUTTON' ? e.target : e.target.parentElement;
         const rect = btn.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = e.clientX - rect.left - size / 2;
@@ -244,6 +248,9 @@ document.addEventListener('click', function(e) {
         if (!btn.style.position || btn.style.position === 'static') {
             btn.style.position = 'relative';
         }
+        if (btn.style.overflow !== 'hidden') {
+            btn.style.overflow = 'hidden';
+        }
 
         btn.appendChild(ripple);
 
@@ -251,7 +258,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Add ripple animation keyframes
+// Add animation keyframes
 const style = document.createElement('style');
 style.textContent = `
     @keyframes ripple {
@@ -266,5 +273,64 @@ style.textContent = `
             opacity: 0;
         }
     }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+    }
 `;
 document.head.appendChild(style);
+
+// Smooth scroll link handling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Add visual feedback untuk input fields
+const inputFields = document.querySelectorAll('input, textarea');
+inputFields.forEach(field => {
+    field.addEventListener('focus', function() {
+        this.style.background = 'linear-gradient(135deg, #ffffff 0%, #fff8f0 100%)';
+    });
+    
+    field.addEventListener('blur', function() {
+        this.style.background = '#ffffff';
+    });
+});
